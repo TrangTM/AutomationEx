@@ -2,15 +2,17 @@ package pck1;
 
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 
 public class tc3 {
 	public WebDriver driver = null;
-	public String baseUrl = "https://automationexercise.com//";
+	public String baseUrl = "https://automationexercise.com/";
 
 	@BeforeTest
 	public void beforeTest() {
@@ -36,11 +38,10 @@ public class tc3 {
 	
 	@Test(priority = 3)
 	public void invalidEmail() {
-		
 		checkHomepage(3);
 		login("trangtm8989@gmail.com", "123456");
 		checkErrorVisiable();
-		
+		checkErrorContent("Your email or password is incorrect!");
 	}
 	
 	@Test(priority = 4)
@@ -48,7 +49,7 @@ public class tc3 {
 		checkHomepage(3);
 		login("trangtm89@gmail.com", "123");
 		checkErrorVisiable();
-		
+		checkErrorContent("Your email or password is incorrect!!!");
 	}
 
 	// 3. Verify that home page is visible successfully
@@ -91,6 +92,11 @@ public class tc3 {
 			return true;
 		}
 		return false;
+	}
+	
+	public void checkErrorContent(String expContent) {
+		WebElement lblIncorect = driver.findElement(By.xpath("//p[normalize-space()='Your email or password is incorrect!']"));
+		Assert.assertEquals(lblIncorect.getText(), expContent);
 	}
 
 	@AfterTest
