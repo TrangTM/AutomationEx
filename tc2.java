@@ -34,7 +34,7 @@ public class tc2 {
 		btnSiLo.click();
 		login("trangtm89@gmail.com", "123456");
 		checkLogged();
-		deleteAcc();
+		//deleteAcc();
 
 	}
 
